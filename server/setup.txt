@@ -1,0 +1,7 @@
+1. create a folder with name "server"
+2. cd server 
+3. npm init -y 
+4. npm i express nodemon mongoose dotenv
+5. create main file i.e. index.js
+6. create files ".env", ".env.example", ".gitignore"
+7. create MVC architecture => create folders "models", "controllers", "db", "routes"
