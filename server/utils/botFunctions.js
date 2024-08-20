@@ -6,6 +6,9 @@ const botInfo = {
     functionalities: [
         { command: "info", description: "Display information about the bot" },
         { command: "help", description: "Show a list of available commands" },
+        { command: "add as member", description: "join as member" },
+        { command: "Quiz", description: "register yourself to participate in Quiz competition" },
+        { command: "hackathon", description: "register yourself to participate in hackathon" },
         // Add more functionalities here
     ]
 };
@@ -28,6 +31,41 @@ const addMember = async (ownerId, email) => {
     }
 };
 
+const quiz = async (ownerId, email) => {
+    try {
+        const owner = await Owner.findOne({ discordId: ownerId });
+        if (!owner) {
+            return "Owner not found";
+        }
+        if (owner.quiz.includes(email)) {
+            return "email already exists";
+        }
+        owner.quiz.push(email);
+        await owner.save();
+        return "registration successful!";
+    } catch (err) {
+        console.error("Error in quiz:", err);
+        return "An error occurred while adding the member";
+    }
+};
+
+const hackathon = async (ownerId, email) => {
+    try {
+        const owner = await Owner.findOne({ discordId: ownerId });
+        if (!owner) {
+            return "Owner not found";
+        }
+        if (owner.hackathon.includes(email)) {
+            return "email already exists";
+        }
+        owner.hackathon.push(email);
+        await owner.save();
+        return "registration successful!";
+    } catch (err) {
+        console.error("Error in hackathon:", err);
+        return "An error occurred while adding the member";
+    }
+};
 
 const wishUser = (message) => {
     const greetings = [
@@ -66,4 +104,4 @@ const wishNewUser = (member) => {
     member.send(randomGreeting).catch(console.error);
 };
 
-module.exports = {addMember, wishUser, sendBotInfo, sendHelpMessage, wishNewUser};  
+module.exports = {addMember, wishUser, sendBotInfo, sendHelpMessage, wishNewUser, quiz, hackathon};  

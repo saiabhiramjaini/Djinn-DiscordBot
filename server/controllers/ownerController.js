@@ -91,4 +91,34 @@ const getMembers = async(req, res)=>{
     }
 }
 
-module.exports = { signup, signin, getMembers };
+const getQuizMembers = async(req, res)=>{
+    try{
+        const ownerId = req.user;
+        const owner = await Owner.findById(ownerId);
+
+        const quiz = owner.quiz;
+
+        return res.status(200).json({quiz});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: 'Internal server error'});
+    }
+}
+
+const getHackathonMembers = async(req, res)=>{
+    try{
+        const ownerId = req.user;
+        const owner = await Owner.findById(ownerId);
+
+        const hackathon = owner.hackathon;
+
+        return res.status(200).json({hackathon});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({msg: 'Internal server error'});
+    }
+}
+
+module.exports = { signup, signin, getMembers, getQuizMembers, getHackathonMembers };

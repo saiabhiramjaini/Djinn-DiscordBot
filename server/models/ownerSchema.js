@@ -19,6 +19,16 @@ const ownerSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    quiz: [
+      {
+        type: String,
+      },
+    ],
+    hackathon: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true }
 );
